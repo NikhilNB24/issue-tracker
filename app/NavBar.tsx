@@ -26,7 +26,9 @@ const NavBar = () => {
                         </Link>
                         <NavLinks />
                     </Flex>
-                    <AuthStatus />
+                    <Flex align="end" gap="3">
+                        <AuthStatus />
+                    </Flex>
                 </Flex>
             </Container>
         </nav>
@@ -65,9 +67,14 @@ const AuthStatus = () => {
     if (status === "loading") return <Skeleton width="3rem" />;
     if (status === "unauthenticated")
         return (
-            <Link href="/api/auth/signin" className="nav-link">
-                Login
-            </Link>
+            <>
+                <Link href="/register" className="nav-link">
+                    Register
+                </Link>
+                <Link href="/api/auth/signin" className="nav-link">
+                    Login
+                </Link>
+            </>
         );
 
     return (
