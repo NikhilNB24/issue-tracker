@@ -9,11 +9,13 @@ import { Skeleton } from "@/app/components";
 import {
     Avatar,
     Box,
+    Button,
     Container,
     DropdownMenu,
     Flex,
     Text,
 } from "@radix-ui/themes";
+import { CaretDownIcon } from "@radix-ui/react-icons";
 
 const NavBar = () => {
     return (
@@ -81,19 +83,23 @@ const AuthStatus = () => {
         <Box>
             <DropdownMenu.Root>
                 <DropdownMenu.Trigger>
-                    <Avatar
+                    <Button variant="soft">
+                        {session!.user!.email}
+                        <CaretDownIcon />
+                    </Button>
+                    {/* <Avatar
                         src={session!.user!.image!}
                         fallback="?"
                         size="2"
                         radius="full"
                         className="cursor-pointer"
                         referrerPolicy="no-referrer"
-                    />
+                    /> */}
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Content>
-                    <DropdownMenu.Label>
+                    {/* <DropdownMenu.Label>
                         <Text size="2">{session!.user!.email}</Text>
-                    </DropdownMenu.Label>
+                    </DropdownMenu.Label> */}
                     <DropdownMenu.Item>
                         <Link href="/api/auth/signout">Log out</Link>
                     </DropdownMenu.Item>
