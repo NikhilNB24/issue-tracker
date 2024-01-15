@@ -28,10 +28,10 @@ const IssueStatusFilter = () => {
     };
     return (
         <Select.Root
-            defaultValue={searchParams.get("status" || "")}
+            defaultValue={searchParams.get("status" ?? "") ?? ""}
             onValueChange={filterIssueNav}
         >
-            <Select.Trigger placeholder="Filter by status..." />
+            <Select.Trigger />
 
             <Select.Content>
                 {statuses.map((status) => (

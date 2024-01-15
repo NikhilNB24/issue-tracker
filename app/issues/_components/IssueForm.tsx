@@ -82,13 +82,12 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
                         control={control}
                         render={({ field }) => (
                             <Select.Root onValueChange={field.onChange}>
-                                <Select.Trigger placeholder="Update the status..." />
-
+                                <Select.Trigger />
                                 <Select.Content>
                                     {statuses.map((status) => (
                                         <Select.Item
                                             key={status.value}
-                                            value={status!.value}
+                                            value={status!.value ?? ""}
                                         >
                                             {status.label}
                                         </Select.Item>
