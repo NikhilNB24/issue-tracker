@@ -47,6 +47,9 @@ const UserRegistrationForm = () => {
             )}
             <form className="max-w-xl space-y-3" onSubmit={onSubmit}>
                 <TextField.Root>
+                    <TextField.Input placeholder="Name" {...register("name")} />
+                </TextField.Root>
+                <TextField.Root>
                     <TextField.Input
                         placeholder="Email"
                         {...register("email")}

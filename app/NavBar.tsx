@@ -84,7 +84,9 @@ const AuthStatus = () => {
             <DropdownMenu.Root>
                 <DropdownMenu.Trigger>
                     <Button variant="soft">
-                        {session!.user!.email}
+                        {session!.user!.name != null
+                            ? session!.user!.name
+                            : "New User"}
                         <CaretDownIcon />
                     </Button>
                     {/* <Avatar
@@ -97,9 +99,9 @@ const AuthStatus = () => {
                     /> */}
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Content>
-                    {/* <DropdownMenu.Label>
+                    <DropdownMenu.Label>
                         <Text size="2">{session!.user!.email}</Text>
-                    </DropdownMenu.Label> */}
+                    </DropdownMenu.Label>
                     <DropdownMenu.Item>
                         <Link href="/api/auth/signout">Log out</Link>
                     </DropdownMenu.Item>
