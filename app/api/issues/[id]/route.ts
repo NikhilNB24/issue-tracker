@@ -8,8 +8,8 @@ export async function PATCH(
     request: NextRequest,
     { params }: { params: { id: string } }
 ) {
-    // const session = await getServerSession(authOptions);
-    // if (!session) return NextResponse.json({}, { status: 401 });
+    const session = await getServerSession(authOptions);
+    if (!session) return NextResponse.json({}, { status: 401 });
 
     const body = await request.json();
     const validation = patchIssueSchema.safeParse(body);
@@ -18,7 +18,7 @@ export async function PATCH(
             status: 400,
         });
 
-    const { assignedToUserId, title, description } = body;
+    const { assignedToUserId, title, description, status } = body;
 
     if (assignedToUserId) {
         const user = await prisma.user.findUnique({
@@ -34,6 +34,7 @@ export async function PATCH(
     const issue = await prisma.issue.findUnique({
         where: { id: parseInt(params.id) },
     });
+    
     if (!issue)
         return NextResponse.json({ error: "Invalid issue" }, { status: 404 });
 
@@ -43,6 +44,7 @@ export async function PATCH(
             title,
             description,
             assignedToUserId,
+            status,
         },
     });
 

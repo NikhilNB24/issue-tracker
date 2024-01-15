@@ -61,6 +61,9 @@ const IssueTable = ({ searchParams, issues }: Props) => {
                         <Table.Cell className="hidden md:table-cell">
                             {issue.createdAt.toDateString()}
                         </Table.Cell>
+                        <Table.Cell className="hidden md:table-cell">
+                            {issue.updatedAt.toDateString()}
+                        </Table.Cell>
                     </Table.Row>
                 ))}
             </Table.Body>
@@ -80,8 +83,13 @@ const columns: {
         className: "hidden md:table-cell",
     },
     {
-        label: "Created",
+        label: "Created On",
         value: "createdAt",
+        className: "hidden md:table-cell",
+    },
+    {
+        label: "Updated On",
+        value: "updatedAt",
         className: "hidden md:table-cell",
     },
 ];

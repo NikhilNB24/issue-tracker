@@ -4,8 +4,8 @@ import ErrorMessage from "@/app/components/ErrorMessage";
 import Spinner from "@/app/components/Spinner";
 import { issueSchema } from "@/app/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Issue } from "@prisma/client";
-import { Button, Callout, TextField } from "@radix-ui/themes";
+import { Issue, Status } from "@prisma/client";
+import { Button, Callout, Select, TextField } from "@radix-ui/themes";
 import axios from "axios";
 import "easymde/dist/easymde.min.css";
 import { useRouter } from "next/navigation";
@@ -26,11 +26,18 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
     } = useForm<IssueFormData>({
         resolver: zodResolver(issueSchema),
     });
+
+    const statuses: { label: string; value?: Status }[] = [
+        { label: "Open", value: "OPEN" },
+        { label: "In Progress", value: "IN_PROGRESS" },
+        { label: "Closed", value: "CLOSED" },
+    ];
     const [error, setError] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const onSubmit = handleSubmit(async (data) => {
         try {
+            console.log("data:", data);
             setIsSubmitting(true);
             if (issue) await axios.patch(`/api/issues/${issue?.id}`, data);
             else await axios.post("/api/issues", data);
@@ -68,6 +75,31 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
                     )}
                 />
                 <ErrorMessage>{errors?.description?.message}</ErrorMessage>
+
+                {issue?.id && (
+                    <Controller
+                        name="status"
+                        control={control}
+                        render={({ field }) => (
+                            <Select.Root onValueChange={field.onChange}>
+                                <Select.Trigger placeholder="Update the status..." />
+
+                                <Select.Content>
+                                    {statuses.map((status) => (
+                                        <Select.Item
+                                            key={status.value}
+                                            value={status!.value}
+                                        >
+                                            {status.label}
+                                        </Select.Item>
+                                    ))}
+                                </Select.Content>
+                            </Select.Root>
+                        )}
+                    />
+                )}
+
+                <br />
 
                 <Button disabled={isSubmitting}>
                     {issue ? "Update Issue" : "Submit New Issue"}{" "}
