@@ -20,7 +20,7 @@ const statuses: { label: string; value?: Status }[] = [
 const IssueStatusFilter = () => {
     const router = useRouter();
 
-    const filterIssueNav = (status) => {
+    const filterIssueNav = (status: string) => {
         const query = status ? `?status=${status}` : "";
         router.push(`/issues/${query}`);
     };
